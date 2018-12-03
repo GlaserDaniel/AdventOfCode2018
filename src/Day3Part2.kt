@@ -1,4 +1,5 @@
 fun day3Part2() {
+    val startTime = System.currentTimeMillis()
     val claims = readFileAsLinesUsingUseLines("inputs/Day3Part1.txt")
 
     var fabricArray = arrayOf<Array<Int>>()
@@ -49,5 +50,6 @@ fun day3Part2() {
         }
     }
 
-    println("\nResultID: $resultID")
+    println("ResultID Day3Part2: $resultID")
+    println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
 }

@@ -1,4 +1,5 @@
 fun day2Part2() {
+    val startTime = System.currentTimeMillis()
     //var input = "abcde fghij klmno pqrst fguij axcye wvxyz "
 
     var input =
@@ -30,11 +31,12 @@ fun day2Part2() {
                 }
 
                 if (counter + 1 == length) {
-                    println("result: $result\n")
+                    println("result Day2Part2: $result\n")
                     println("word1: $word1")
                     println("word2: $word2\n")
-                    //break
-                    System.exit(0)
+                    println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
+                    return
+                    //System.exit(0)
                 }
             }
         }
