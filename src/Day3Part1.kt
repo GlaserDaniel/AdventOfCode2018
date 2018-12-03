@@ -1,22 +1,17 @@
+import java.io.File
+
+fun readFileAsLinesUsingUseLines(fileName: String): List<String>
+        = File(fileName).useLines { it.toList() }
+
 fun day3Part1() {
-    var input = "#1 @ 1,3: 4x4\n" +
-            "#2 @ 3,1: 4x4\n" +
-            "#3 @ 5,5: 2x2\n"
-
-    val claims = ArrayList<String>()
-
-    while (input.isNotEmpty()) {
-        val claim = input.substring(0, input.indexOf("\n"))
-        claims.add(claim)
-        input = input.substring(input.indexOf("\n")+1, input.length)
-    }
+    val claims = readFileAsLinesUsingUseLines("inputs/Day3Part1.txt")
 
     var fabricArray = arrayOf<Array<Int>>()
 
     // initialize with 0
-    for (i in 0..8) {
+    for (i in 0..1000) {
         var array = arrayOf<Int>()
-        for (j in 0..8) {
+        for (j in 0..1000) {
             array += 0
         }
         fabricArray += array
