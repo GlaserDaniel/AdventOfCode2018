@@ -1,8 +1,3 @@
-import java.io.File
-
-fun readFileAsLinesUsingUseLines(fileName: String): List<String>
-        = File(fileName).useLines { it.toList() }
-
 fun day3Part1() {
     val claims = readFileAsLinesUsingUseLines("inputs/Day3Part1.txt")
 
