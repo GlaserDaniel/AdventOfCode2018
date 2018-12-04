@@ -80,48 +80,49 @@ fun day4Part2() {
         }
     }
 
-    println("Guards: $guards")
+    // the index of the outer array is the id of the guard
+    // the index of the inner array is the minute
+    // the value of the inner array is how often the guard sleeps in that minute
+    var overlapMinutesArray = arrayOf<Array<Int>>()
 
-    var guardWithMostSleep = Guard(0)
-    var timeOfTheMostSleep = 0L
+    // initialize with 0
+    for (i in 0..guards.size) {
+        var array = arrayOf<Int>()
+        for (j in 0..60) {
+            array += 0
+        }
+        overlapMinutesArray += array
+    }
 
     for (guardInList in guards) {
-        if (guardInList.durationOfSleepInMinutes > timeOfTheMostSleep) {
-            timeOfTheMostSleep = guardInList.durationOfSleepInMinutes
-            guardWithMostSleep = guardInList
-        }
-    }
-
-    println("\n\nThe Guard who sleep the most: ${guardWithMostSleep.id}")
-
-    val overlapMinutesArray = ArrayList<Int>()
-
-    for (i in 0..60) {
-        overlapMinutesArray.add(0)
-    }
-
-    for ((index, _) in overlapMinutesArray.withIndex()) {
-        for (sleep in guardWithMostSleep.listOfSleeps) {
-            if (index >= sleep.first.minute
-                && index < sleep.second.minute) {
-                overlapMinutesArray[index] += 1
+        for (sleep in guardInList.listOfSleeps) {
+            for ((index, value) in overlapMinutesArray[guardInList.id].withIndex()) {
+                if (index >= sleep.first.minute
+                    && index < sleep.second.minute
+                ) {
+                    overlapMinutesArray[guardInList.id][index] += 1
+                }
             }
         }
     }
 
-    var minuteItOverlapsTheMost = 0
+    var guardIdOfMostMinutes = 0
+    var minuteTheGuardSleep = 0
     var counter = 0
 
-    for ((index, value) in overlapMinutesArray.withIndex()) {
-        if (value > counter) {
-            counter = value
-            minuteItOverlapsTheMost = index
+    for ((guardIdIndex, minutesValues) in overlapMinutesArray.withIndex()) {
+        for ((minuteIndex, value) in minutesValues.withIndex()) {
+            if (value > counter) {
+                counter = value
+                guardIdOfMostMinutes = guardIdIndex
+                minuteTheGuardSleep = minuteIndex
+            }
         }
     }
 
-    println("\nMinute it overlaps the most: $minuteItOverlapsTheMost")
+    println("\nMinute it overlaps the most: $guardIdOfMostMinutes")
 
-    result = guardWithMostSleep.id * minuteItOverlapsTheMost
+    result = minuteTheGuardSleep * guardIdOfMostMinutes
 
     println("\nResult Day4Part1: $result")
     println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
