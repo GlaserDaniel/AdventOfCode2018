@@ -31,12 +31,19 @@ fun day3Part1() {
 
     for (array in fabricArray) {
         for (value in array) {
+            if (value == 0) {
+                print(" ")
+            } else if (value == 1) {
+                print("|")
+            } else {
+                print("X")
+            }
             //print(value)
             if (value >= 2) {
                 result++
             }
         }
-        //println()
+        println()
     }
 
     println("\nResult Day3Part1: $result")
