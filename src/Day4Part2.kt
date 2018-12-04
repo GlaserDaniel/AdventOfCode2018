@@ -80,6 +80,9 @@ fun day4Part2() {
         }
     }
 
+    // Idee HashMap oder Key Value oder Map
+    // [ID] [[minute] [value]]
+
     // the index of the outer array is the id of the guard
     // the index of the inner array is the minute
     // the value of the inner array is how often the guard sleeps in that minute
