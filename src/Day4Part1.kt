@@ -8,10 +8,10 @@ import kotlin.collections.ArrayList
 
 fun day4Part1() {
     val startTime = System.currentTimeMillis()
-    //val input = readFileAsLinesUsingUseLines("inputs/Day4.txt")
-    val result = 0
+    var input = readFileAsLinesUsingUseLines("inputs/Day4.txt")
+    val result: Int
 
-    val testInput = "[1518-11-01 00:00] Guard #10 begins shift\n" +
+    /*val testInput = "[1518-11-01 00:00] Guard #10 begins shift\n" +
             "[1518-11-01 00:05] falls asleep\n" +
             "[1518-11-01 00:25] wakes up\n" +
             "[1518-11-01 00:30] falls asleep\n" +
@@ -29,7 +29,9 @@ fun day4Part1() {
             "[1518-11-05 00:45] falls asleep\n" +
             "[1518-11-05 00:55] wakes up"
 
-    val input = testInput.lines()
+    val input = testInput.lines()*/
+
+    input = input.sorted()
 
     val guards = ArrayList<Guard>()
 
@@ -82,17 +84,46 @@ fun day4Part1() {
 
     println("Guards: $guards")
 
-    var guardIdOfTheMostSleep = 0
+    var guardWithMostSleep = Guard(0)
     var timeOfTheMostSleep = 0L
 
     for (guardInList in guards) {
         if (guardInList.durationOfSleepInMinutes > timeOfTheMostSleep) {
             timeOfTheMostSleep = guardInList.durationOfSleepInMinutes
-            guardIdOfTheMostSleep = guardInList.id
+            guardWithMostSleep = guardInList
         }
     }
 
-    println("\n\nThe Guard who sleep the most: $guardIdOfTheMostSleep")
+    println("\n\nThe Guard who sleep the most: ${guardWithMostSleep.id}")
+
+    val overlapMinutesArray = ArrayList<Int>()
+
+    for (i in 0..60) {
+        overlapMinutesArray.add(0)
+    }
+
+    for ((index, _) in overlapMinutesArray.withIndex()) {
+        for (sleep in guardWithMostSleep.listOfSleeps) {
+            if (index >= sleep.first.minute
+                && index < sleep.second.minute) {
+                overlapMinutesArray[index] += 1
+            }
+        }
+    }
+
+    var minuteItOverlapsTheMost = 0
+    var counter = 0
+
+    for ((index, value) in overlapMinutesArray.withIndex()) {
+        if (value > counter) {
+            counter = value
+            minuteItOverlapsTheMost = index
+        }
+    }
+
+    println("\nMinute it overlaps the most: $minuteItOverlapsTheMost")
+
+    result = guardWithMostSleep.id * minuteItOverlapsTheMost
 
     println("\nResult Day4Part1: $result")
     println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
