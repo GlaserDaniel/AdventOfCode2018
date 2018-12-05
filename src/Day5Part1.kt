@@ -53,7 +53,9 @@ fun removeDoubleLetter(inputArray: MutableList<Char>) {
         if (iterator.hasNext()) {
             second = iterator.next()
         }
-        if (first.toLowerCase() == second.toLowerCase()) {
+        if (first != second
+            && first.toLowerCase() == second.toLowerCase()
+        ) {
             iterator.remove()
             iterator.previous()
             iterator.remove()
