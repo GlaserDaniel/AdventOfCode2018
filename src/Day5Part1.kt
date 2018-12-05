@@ -25,11 +25,33 @@ How many units remain after fully reacting the polymer you scanned? (Note: in th
 
 fun day5Part1() {
     val startTime = System.currentTimeMillis()
-    var input = readFileAsLinesUsingUseLines("inputs/Day5.txt")
-    val result = 0
+    //val input = readFileAsLinesUsingUseLines("inputs/Day5.txt")[0]
+    val result: Int
 
+    val input = "dabAcCaCBAcCcaDA"
 
+    val inputArray = input.toMutableList()
+
+    val resultList = removeDoubleLetter(inputArray)
+
+    result = resultList.size
 
     println("\nResult Day5Part1: $result")
     println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
+}
+
+fun removeDoubleLetter(inputArray: MutableList<Char>): MutableList<Char> {
+    var resultList = inputArray.toMutableList()
+    for ((index, value) in inputArray.withIndex()) {
+        if (index + 2 <= inputArray.size) {
+            if (value.toLowerCase() == inputArray[index + 1].toLowerCase()) {
+                resultList = inputArray
+                resultList.removeAt(index)
+                resultList.removeAt(index)
+                resultList = removeDoubleLetter(resultList)
+                break
+            }
+        }
+    }
+    return resultList
 }
