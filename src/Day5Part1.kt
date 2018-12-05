@@ -23,6 +23,13 @@ After all possible reactions, the resulting polymer contains 10 units.
 How many units remain after fully reacting the polymer you scanned? (Note: in this puzzle and others, the input is large; if you copy/paste your input, make sure you get the whole thing.)
 */
 
-fun Day5Part1() {
+fun day5Part1() {
+    val startTime = System.currentTimeMillis()
+    var input = readFileAsLinesUsingUseLines("inputs/Day5.txt")
+    val result = 0
 
+
+
+    println("\nResult Day5Part1: $result")
+    println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
 }
