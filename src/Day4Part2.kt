@@ -144,16 +144,15 @@ fun day4Part2() {
         }
     }
 
-    // Idee HashMap oder Key Value oder Map
+    // HashMap
     // [ID] [[minute] [value]]
-
-    var overlappingMinutesArray = HashMap<Int, HashMap<Int, Int>>()
+    val overlappingMinutesArray = HashMap<Int, HashMap<Int, Int>>()
 
     // initialize with 0
-    for (guard in guards) {
-        overlappingMinutesArray[guard.id] = HashMap(60)
+    for (guardInGuards in guards) {
+        overlappingMinutesArray[guardInGuards.id] = HashMap(60)
         for (j in 0..60) {
-            overlappingMinutesArray[guard.id]?.set(j, 0)
+            overlappingMinutesArray[guardInGuards.id]?.set(j, 0)
         }
     }
 
