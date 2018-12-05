@@ -25,24 +25,47 @@ How many units remain after fully reacting the polymer you scanned? (Note: in th
 
 fun day5Part1() {
     val startTime = System.currentTimeMillis()
-    //val input = readFileAsLinesUsingUseLines("inputs/Day5.txt")[0]
+    val input = readFileAsLinesUsingUseLines("inputs/Day5.txt")[0]
     val result: Int
 
-    val input = "dabAcCaCBAcCcaDA"
+    //val input = "dabAcCaCBAcCcaDA"
 
     val inputArray = input.toMutableList()
 
-    val resultList = removeDoubleLetter(inputArray)
+    removeDoubleLetter(inputArray)
 
-    result = resultList.size
+    //println("Array: " + inputArray.toString())
+
+    result = inputArray.size
 
     println("\nResult Day5Part1: $result")
     println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
 }
 
-fun removeDoubleLetter(inputArray: MutableList<Char>): MutableList<Char> {
-    var resultList = inputArray.toMutableList()
-    for ((index, value) in inputArray.withIndex()) {
+fun removeDoubleLetter(inputArray: MutableList<Char>) {
+    //var resultList = inputArray.toMutableList()
+
+    val iterator = inputArray.listIterator()
+
+    while (iterator.hasNext()) {
+        val first = iterator.next()
+        var second = ' '
+        if (iterator.hasNext()) {
+            second = iterator.next()
+        }
+        if (first.toLowerCase() == second.toLowerCase()) {
+            iterator.remove()
+            iterator.previous()
+            iterator.remove()
+        }
+        if (second != ' ') {
+            if (iterator.hasPrevious()) {
+                iterator.previous()
+            }
+        }
+    }
+
+    /*for ((index, value) in inputArray.withIndex()) {
         if (index + 2 <= inputArray.size) {
             if (value.toLowerCase() == inputArray[index + 1].toLowerCase()) {
                 resultList = inputArray
@@ -53,5 +76,5 @@ fun removeDoubleLetter(inputArray: MutableList<Char>): MutableList<Char> {
             }
         }
     }
-    return resultList
+    return resultList*/
 }
