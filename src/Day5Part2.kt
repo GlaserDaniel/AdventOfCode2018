@@ -82,6 +82,6 @@ fun day5Part2() {
 
     result = lowestSize
 
-    println("\nResult Day5Part2: $result\nThe Letzzer is: $lowestLetter")
+    println("\nResult Day5Part2: $result\nThe Letter is: $lowestLetter")
     println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
 }
