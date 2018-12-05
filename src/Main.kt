@@ -8,8 +8,9 @@ fun main(args: Array<String>) {
     day3Part1()
     day3Part2()
     day4Part1()
-    day4Part2()*/
-    day5Part1()
+    day4Part2()
+    day5Part1()*/
+    day5Part2()
 }
 
 fun readFileAsLinesUsingUseLines(fileName: String): List<String>
