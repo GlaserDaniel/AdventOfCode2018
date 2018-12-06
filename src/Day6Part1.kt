@@ -78,7 +78,7 @@ fun day6Part1() {
     for (y in 0..12) {
         val array = arrayListOf<Int>()
         for (x in 0..12) {
-            array.add(0)
+            array.add(-1)
         }
         grid += array
     }
@@ -87,14 +87,30 @@ fun day6Part1() {
         for ((indexX, valueArray) in valueGrid.withIndex()) {
             var distance = 400
             for ((indexCoordinate, valueCoordinate) in coordinates.withIndex()) {
-                val tempDistance = ((valueCoordinate.first - indexX) + (valueCoordinate.second - indexY)).absoluteValue
+                val distanceX: Int = if (valueCoordinate.first >= indexX) {
+                    valueCoordinate.first - indexX
+                } else {
+                    indexX - valueCoordinate.first
+                }
+
+                val distanceY: Int = if (valueCoordinate.second >= indexY) {
+                    valueCoordinate.second - indexY
+                } else {
+                    indexY - valueCoordinate.second
+                }
+
+                val tempDistance = (distanceX + distanceY).absoluteValue
                 if (tempDistance < distance) {
                     distance = tempDistance
-                    grid[indexY][indexX] = indexCoordinate
+                    grid[indexY][indexX] = indexCoordinate + 1
+                } else if (tempDistance == distance) {
+                    grid[indexY][indexX] = 0
                 }
             }
         }
     }
+
+
 
     for (y in grid) {
         for (x in y) {
@@ -102,6 +118,8 @@ fun day6Part1() {
         }
         println()
     }
+
+
 
     println("\nResult Day6Part1: $result")
     println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
