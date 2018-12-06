@@ -1,3 +1,5 @@
+import kotlin.math.absoluteValue
+
 /*
 --- Day 6: Chronal Coordinates ---
 The device on your wrist beeps several times, and once again you feel like you're falling.
@@ -63,8 +65,42 @@ fun day6Part1() {
 
     val input = inputString.lines()
 
-    for (line in input) {
+    val coordinates = arrayListOf<Pair<Int, Int>>()
 
+    for (line in input) {
+        val coordinateX = Integer.parseInt(line.substring(0, line.indexOf(',')))
+        val coordinateY = Integer.parseInt(line.substring(line.indexOf(',') + 2, line.length))
+        coordinates.add(Pair(coordinateX, coordinateY))
+    }
+
+    val grid = arrayListOf<ArrayList<Int>>()
+
+    for (y in 0..12) {
+        val array = arrayListOf<Int>()
+        for (x in 0..12) {
+            array.add(0)
+        }
+        grid += array
+    }
+
+    for ((indexY, valueGrid) in grid.withIndex()) {
+        for ((indexX, valueArray) in valueGrid.withIndex()) {
+            var distance = 400
+            for ((indexCoordinate, valueCoordinate) in coordinates.withIndex()) {
+                val tempDistance = ((valueCoordinate.first - indexX) + (valueCoordinate.second - indexY)).absoluteValue
+                if (tempDistance < distance) {
+                    distance = tempDistance
+                    grid[indexY][indexX] = indexCoordinate
+                }
+            }
+        }
+    }
+
+    for (y in grid) {
+        for (x in y) {
+            print(x)
+        }
+        println()
     }
 
     println("\nResult Day6Part1: $result")
