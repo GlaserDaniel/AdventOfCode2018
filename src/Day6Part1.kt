@@ -65,6 +65,7 @@ fun day6Part1() {
 
     val input = inputString.lines()*/
 
+    // Pair<X, Y>
     val coordinates = arrayListOf<Pair<Int, Int>>()
 
     var highestX = 0
@@ -97,19 +98,7 @@ fun day6Part1() {
         for ((indexX, _) in valueGrid.withIndex()) {
             var distance = 400
             for ((indexCoordinate, valueCoordinate) in coordinates.withIndex()) {
-                val distanceX: Int = if (valueCoordinate.first >= indexX) {
-                    valueCoordinate.first - indexX
-                } else {
-                    indexX - valueCoordinate.first
-                }
-
-                val distanceY: Int = if (valueCoordinate.second >= indexY) {
-                    valueCoordinate.second - indexY
-                } else {
-                    indexY - valueCoordinate.second
-                }
-
-                val tempDistance = (distanceX + distanceY).absoluteValue
+                val tempDistance = calculateManhattanDistance(valueCoordinate.first, valueCoordinate.second, indexX, indexY)
                 if (tempDistance < distance) {
                     distance = tempDistance
                     grid[indexY][indexX] = indexCoordinate + 1
@@ -163,4 +152,8 @@ fun day6Part1() {
 
     println("\nResult Day6Part1: $result with the coordinate number $maxCoordinate")
     println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
+}
+
+fun calculateManhattanDistance(point1X: Int, point1Y: Int, point2X: Int, point2Y: Int): Int {
+    return (point1X - point2X).absoluteValue + (point1Y - point2Y).absoluteValue
 }
