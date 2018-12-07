@@ -53,38 +53,48 @@ What is the size of the largest area that isn't infinite?
 
 fun day6Part1() {
     val startTime = System.currentTimeMillis()
-    //val input = readFileAsLinesUsingUseLines("inputs/Day6.txt")
-    val result = 0
+    val input = readFileAsLinesUsingUseLines("inputs/Day6.txt")
+    val result: Int
 
-    val inputString = "1, 1\n" +
+    /*val inputString = "1, 1\n" +
             "1, 6\n" +
             "8, 3\n" +
             "3, 4\n" +
             "5, 5\n" +
             "8, 9"
 
-    val input = inputString.lines()
+    val input = inputString.lines()*/
 
     val coordinates = arrayListOf<Pair<Int, Int>>()
+
+    var highestX = 0
+    var highestY = 0
 
     for (line in input) {
         val coordinateX = Integer.parseInt(line.substring(0, line.indexOf(',')))
         val coordinateY = Integer.parseInt(line.substring(line.indexOf(',') + 2, line.length))
         coordinates.add(Pair(coordinateX, coordinateY))
+
+        if (coordinateX > highestX) {
+            highestX = coordinateX
+        }
+        if (coordinateY > highestY) {
+            highestY = coordinateY
+        }
     }
 
     val grid = arrayListOf<ArrayList<Int>>()
 
-    for (y in 0..12) {
+    for (y in 0..highestY + 2) {
         val array = arrayListOf<Int>()
-        for (x in 0..12) {
+        for (x in 0..highestX + 2) {
             array.add(-1)
         }
         grid += array
     }
 
     for ((indexY, valueGrid) in grid.withIndex()) {
-        for ((indexX, valueArray) in valueGrid.withIndex()) {
+        for ((indexX, _) in valueGrid.withIndex()) {
             var distance = 400
             for ((indexCoordinate, valueCoordinate) in coordinates.withIndex()) {
                 val distanceX: Int = if (valueCoordinate.first >= indexX) {
@@ -110,17 +120,47 @@ fun day6Part1() {
         }
     }
 
+    val wrongCoordinates = ArrayList<Int>()
+    val resultArray = HashMap<Int, Int>()
 
-
-    for (y in grid) {
-        for (x in y) {
+    for ((indexY, y) in grid.withIndex()) {
+        for ((indexX, x) in y.withIndex()) {
             print(x)
+            if (x == 43 && indexY == 360) {
+                print("")
+            }
+            if (indexX == 0 || indexY == 0 || indexX == y.size -1 || indexY == grid.size -1) {
+                if (!wrongCoordinates.contains(x)) {
+                    wrongCoordinates.add(x)
+                }
+            }
+            if (!wrongCoordinates.contains(x) && x != 0) {
+                if (resultArray[x] != null) {
+                    var temp = resultArray[x]
+                    temp = temp!!.plus(1)
+                    resultArray[x] = temp
+                } else {
+                    resultArray[x] = 1
+                }
+            } else {
+                resultArray[x] = 0
+            }
         }
         println()
     }
 
+    var maxAmount = 0
+    var maxCoordinate = 0
 
+    for ((coordinate, amount) in resultArray) {
+        if (amount > maxAmount) {
+            maxAmount = amount
+            maxCoordinate = coordinate
+        }
+    }
 
-    println("\nResult Day6Part1: $result")
+    result = maxAmount
+
+    println("\nResult Day6Part1: $result with the coordinate number $maxCoordinate")
     println("Time in Millis: " + (System.currentTimeMillis() - startTime) + "\n")
 }
