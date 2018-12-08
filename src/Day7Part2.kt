@@ -1,6 +1,6 @@
 fun day7Part2() {
     val startTime = System.currentTimeMillis()
-    val input = readFileAsLinesUsingUseLines("inputs/Day6.txt")
+    val input = readFileAsLinesUsingUseLines("inputs/Day7.txt")
 
     val result: Int = calculateResult(input)
 

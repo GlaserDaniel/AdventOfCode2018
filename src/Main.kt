@@ -1,7 +1,8 @@
 import java.io.File
 
 fun main(args: Array<String>) {
-    /*day1Part1()
+    /*
+    day1Part1()
     day1Part2()
     day2Part1()
     day2Part2()
@@ -10,8 +11,10 @@ fun main(args: Array<String>) {
     day4Part1()
     day4Part2()
     day5Part1()
-    day5Part2()*/
+    day5Part2()
     day6Part1()
+    */
+    day6Part2()
 }
 
 fun readFileAsLinesUsingUseLines(fileName: String): List<String>
